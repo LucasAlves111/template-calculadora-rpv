@@ -1,12 +1,18 @@
 export default function Home() {
   return (
     <>
-      <h1>Bem-vindo à calculadora RPV</h1>
-      <h2>Projeto base Next.js + Tailwind + shadcn + integração backend</h2>
-      <p>
-        Este projeto foi criado para demonstrar uma calculadora de operações matemáticas integrando frontend modero com backend externo, utilizando as melhores pratícas do ecossistema React/Next.js.
-      </p>
-      <button></button>
+      <div className="h-screen w-full flex items-center justify-center">
+        <div className="flex flex-col items-center justify-center max-w-2xl gap-9">
+          <h1 className="text-4xl font-bold">Bem-vindo à calculadora RPV</h1>
+          <h2 className="text-xl font-bold">Projeto base Next.js + Tailwind + shadcn + integração backend</h2>
+          <p className="leading-relaxed text-lg text-center">
+            Este projeto foi criado para demonstrar uma calculadora de operações
+            matemáticas integrando frontend modero com backend externo,
+            utilizando as melhores pratícas do ecossistema React/Next.js.
+          </p>
+          <button>Ir para calculadora</button>
+        </div>
+      </div>
     </>
   );
 }
