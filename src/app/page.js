@@ -1,3 +1,5 @@
+import { Button } from "@/components/ui/button";
+
 export default function Home() {
   return (
     <>
@@ -10,7 +12,7 @@ export default function Home() {
             matemáticas integrando frontend modero com backend externo,
             utilizando as melhores pratícas do ecossistema React/Next.js.
           </p>
-          <button>Ir para calculadora</button>
+          <Button>Ir para calculadora</Button>
         </div>
       </div>
     </>
