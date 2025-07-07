@@ -1,60 +1,62 @@
 "use client";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@radix-ui/react-select";
+} from "@/components/ui/select";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
-import { Input } from "@/components/ui/input";
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-
-export default function PaginaCalculadora() {
+export default function Calculadora() {
   const [numero1, setNumero1] = useState(0);
   const [numero2, setNumero2] = useState(0);
-  const [operacao, setOperacao] = useState("");
+  const [operacoes, setOperacoes] = useState([
+    { id: 1, description: "somar" },
+    { id: 2, description: "subtrair" },
+  ]);
+  const [operacao, setOperacao] = useState();
+
+  useEffect(() => {
+    axios
+      .get("https://rpv.cddtecnologia.com.br/operations")
+      .then((res) => setOperacoes(res.data.retorno));
+  }, []);
 
   return (
-    <>
-      <div className="h-screen x-full flex flex-col items-center justify-center">
-        <h1 className="text-3xl">Pagina da Calculadora</h1>
-
-        <form action="" className="flex flex-col gap-4 w-full max-w-xs">
-          <Input
-            type="number"
-            placeholder="Primeiro número"
-            value={numero1}
-            onChange={(e) => setNumero1(e.target.value)}
-            required
-          ></Input>
-          <Select value={operacao} onValueChange={setOperacao} required>
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder="Selecione a operação" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem key={1} value={"Somar"}>
-                {"Somar"}
+    <div className="h-screen w-full flex items-center justify-center">
+      <div className="flex flex-col items-center justify-center max-w-2xl gap-9">
+        <Input
+          type="number"
+          placeholder="Primeiro número"
+          value={numero1}
+          onChange={(e) => setNumero1(e.target.value)}
+          required
+        />
+        <Select value={operacao} onValueChange={setOperacao} required>
+          <SelectTrigger className="w-full">
+            <SelectValue placeholder="Selecione a operação" />
+          </SelectTrigger>
+          <SelectContent>
+            {operacoes.map((op) => (
+              <SelectItem key={op.id} value={String(op.id)}>
+                {op.description}
               </SelectItem>
-              <SelectItem key={2} value={"Subtrair"}>
-                {"Subtrair"}
-              </SelectItem>
-              <SelectItem key={3} value={"Multiplicar"}>
-                {"Multiplicar"}
-              </SelectItem>
-            </SelectContent>
-          </Select>
-          <Input
-            type="number"
-            placeholder="Segundo número"
-            value={numero2}
-            onchange={(e) => setNumero2(e.target.value)}
-            required
-          ></Input>
-          <Button>Realizar a Operação</Button>
-        </form>
+            ))}
+          </SelectContent>
+        </Select>
+        <Input
+          type="number"
+          placeholder="Segundo número"
+          value={numero2}
+          onChange={(e) => setNumero2(e.target.value)}
+          required
+        />
+        <Button>Realizar operação</Button>
       </div>
-    </>
+    </div>
   );
 }

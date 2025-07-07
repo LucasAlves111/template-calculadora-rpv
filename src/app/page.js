@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 
 export default function Home() {
   return (
+    
     <>
       <div className="h-screen w-full flex items-center justify-center">
         <div className="flex flex-col items-center justify-center max-w-2xl gap-9">
